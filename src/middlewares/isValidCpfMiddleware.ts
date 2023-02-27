@@ -1,4 +1,4 @@
-import { invalidCpfError } from "../utils/errorUtils";
+import { invalidCpfError } from "../utils/errorUtils.js";
 import { Request, NextFunction, Response } from "express";
 
 export async function isValidCpfMiddleware(
@@ -6,7 +6,9 @@ export async function isValidCpfMiddleware(
   res: Response,
   next: NextFunction
 ) {
-  const { cpf } = req.body;
+  let { cpf } = req.body;
+
+  if (cpf === undefined) cpf = req.params.cpf;
 
   if (typeof cpf !== "string") throw invalidCpfError("CPF is not valid.");
 
