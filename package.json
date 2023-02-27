@@ -3,37 +3,51 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node ./src/server.ts",
-    "dev": "nodemon ./src/server.ts",
-    "test": "npx jest"
+    "start": "npm run prisma:deploy && npm run test && node ./dist/src/server.js",
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:dev": "prisma migrate dev",
+    "dev": "nodemon -L -e ts --exec \"npm run build && npm start\"",
+    "test": "jest /dist/src/tests/cpf.test.js",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/preset-typescript": "^7.21.0",
     "@faker-js/faker": "^7.6.0",
+    "@jest/globals": "^29.4.3",
+    "@swc/core": "^1.3.36",
+    "@swc/jest": "^0.2.24",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.4.0",
     "@types/joi": "^17.2.3",
     "@types/node": "^18.14.1",
+    "@types/pg": "^8.6.6",
     "@types/supertest": "^2.0.12",
-    "faker": "^6.6.6",
+    "dotenv": "^16.0.3",
     "jest": "^29.4.3",
     "nodemon": "^2.0.20",
+    "prisma": "^4.10.1",
     "supertest": "^6.3.3",
+    "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@prisma/client": "^4.10.1",
     "cors": "^2.8.5",
     "cpf-cnpj-validator": "^1.0.3",
-    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "faker-br": "^0.4.1",
     "gerador-validador-cpf": "^5.0.2",
-    "joi": "^17.8.3"
+    "joi": "^17.8.3",
+    "moment": "^2.29.4",
+    "pg": "^8.9.0",
+    "ts-jest-resolver": "^2.0.0"
   }
 }
